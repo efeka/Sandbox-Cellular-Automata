@@ -17,8 +17,10 @@ public class GameMain extends Canvas implements Runnable {
 	private boolean running = false;
 	private Thread thread;
 	
+	private Handler handler;
+	
 	private void init() {
-//		handler = new Handler();
+		handler = new Handler();
 
 		MouseInput mouse = new MouseInput();
 		addMouseListener(mouse);
@@ -64,7 +66,7 @@ public class GameMain extends Canvas implements Runnable {
 	}
 
 	private void tick() {
-		//handler.tick();
+		handler.tick();
 	}
 
 	private void render() {
@@ -78,10 +80,10 @@ public class GameMain extends Canvas implements Runnable {
 		Graphics2D g2d = (Graphics2D) g;
 
 		//background
-		g.setColor(new Color(30, 30, 60));
+		g.setColor(new Color(70, 70, 70));
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		//handler.render(g);			
+		handler.render(g);			
 
 		g.dispose();
 		bs.show();
