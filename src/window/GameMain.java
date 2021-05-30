@@ -2,11 +2,11 @@ package window;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+
+import framework.MouseInput;
 
 @SuppressWarnings("serial")
 public class GameMain extends Canvas implements Runnable {
@@ -18,18 +18,11 @@ public class GameMain extends Canvas implements Runnable {
 	private Thread thread;
 	
 	private void init() {
-//		tex = new Texture();
 //		handler = new Handler();
-//		cam = new Camera(0, 0);
 
-		//handler.LoadImageLevel(level);
-
-//		MouseInput mouse = new MouseInput();
-//		addMouseListener(mouse);
-//		addMouseMotionListener(mouse);
-		//this.addKeyListener(new KeyInput(handler));
-		//this.addMouseMotionListener(new MouseInput(handler));
-
+		MouseInput mouse = new MouseInput();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 
 	public synchronized void start() {
