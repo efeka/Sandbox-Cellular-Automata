@@ -11,8 +11,8 @@ import java.awt.image.BufferStrategy;
 @SuppressWarnings("serial")
 public class GameMain extends Canvas implements Runnable {
 	
-	public static int SCREEN_WIDTH;
-	public static int SCREEN_HEIGHT;
+	public static int SCREEN_WIDTH = 700;
+	public static int SCREEN_HEIGHT = 600;
 	
 	private boolean running = false;
 	private Thread thread;
@@ -94,20 +94,8 @@ public class GameMain extends Canvas implements Runnable {
 		bs.show();
 	}
 
-	public static int clamp(int var, int min, int max) {
-		if (var>=max)
-			return var=max;
-		else if (var<=min)
-			return var=min;
-		else
-			return var;
-	}
-
 	public static void main(String[] args) {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		SCREEN_WIDTH = (int) screenSize.getWidth();
-		SCREEN_HEIGHT = (int) screenSize.getHeight();
-		new Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Space Shooter", new GameMain());
+		new Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Sandbox Cellular Automata", new GameMain());
 	}
 
 }
