@@ -28,84 +28,88 @@ public class Cell extends GameObject {
 					Grid.getDown(this).setId(ObjectId.Sand);
 					id = ObjectId.Empty;
 				}
+				else if (Grid.getDown(this).getId() == ObjectId.Water) {
+					Grid.getDown(this).setId(ObjectId.Sand);
+					setId(ObjectId.Water);
+				}
 				else {
 					if (Grid.getDownLeft(this) != null && Grid.getDownLeft(this).getId() == ObjectId.Empty) {
 						Grid.getDownLeft(this).setId(ObjectId.Sand);
 						id = ObjectId.Empty;
 					}
+					else if (Grid.getDownLeft(this) != null && Grid.getDownLeft(this).getId() == ObjectId.Water) {
+						Grid.getDownLeft(this).setId(ObjectId.Sand);
+						setId(ObjectId.Water);
+					}
 					else if (Grid.getDownRight(this) != null && Grid.getDownRight(this).getId() == ObjectId.Empty) {
 						Grid.getDownRight(this).setId(ObjectId.Sand);
 						id = ObjectId.Empty;
+					}
+					else if (Grid.getDownRight(this) != null && Grid.getDownRight(this).getId() == ObjectId.Water) {
+						Grid.getDownRight(this).setId(ObjectId.Sand);
+						setId(ObjectId.Water);
 					}
 				}
 			}
 		}
 		else if (id == ObjectId.Water) {
 			if (Grid.getDown(this) != null && Grid.getDown(this).getId() == ObjectId.Empty) {
-				System.out.println("a");
 				Grid.getDown(this).setId(ObjectId.Water);
 				setId(ObjectId.Empty);
 			}
 			else if (Grid.getDownLeft(this) != null && Grid.getDownLeft(this).getId() == ObjectId.Empty) {
-				System.out.println("b");
 				Grid.getDownLeft(this).setId(ObjectId.Water);
 				setId(ObjectId.Empty);
 			}
 			else if (Grid.getDownRight(this) != null && Grid.getDownRight(this).getId() == ObjectId.Empty) {
-				System.out.println("c");
 				Grid.getDownRight(this).setId(ObjectId.Water);
 				setId(ObjectId.Empty);
 			}
 			else {
-				if (Grid.getLeft(this) != null && Grid.getLeft(this).getId() == ObjectId.Empty)
-					direction = -1;
-				else if (Grid.getRight(this) != null && Grid.getRight(this).getId() == ObjectId.Empty)
-					direction = 1;
-				else
-					direction = 0;
-				
 				if (direction == -1) {
-					System.out.println("d");
-					Grid.getLeft(this).setId(ObjectId.Water);
-					setId(ObjectId.Empty);
+					if (Grid.getLeft(this) != null && Grid.getLeft(this).getId() == ObjectId.Empty) {
+						Grid.getLeft(this).setId(ObjectId.Water);
+						Grid.getLeft(this).setDirection(-1);
+						setId(ObjectId.Empty);
+						direction = 0;
+					}
+					else if (Grid.getRight(this) != null && Grid.getRight(this).getId() == ObjectId.Empty) {
+						Grid.getRight(this).setId(ObjectId.Water);
+						Grid.getRight(this).setDirection(1);
+						setId(ObjectId.Empty);
+						direction = 0;
+					}
 				}
 				else if (direction == 1) {
-					System.out.println("e");
-					Grid.getRight(this).setId(ObjectId.Water);
-					setId(ObjectId.Empty);
+					if (Grid.getRight(this) != null && Grid.getRight(this).getId() == ObjectId.Empty) {
+						Grid.getRight(this).setId(ObjectId.Water);
+						Grid.getRight(this).setDirection(1);
+						setId(ObjectId.Empty);
+						direction = 0;
+					}
+					else if (Grid.getLeft(this) != null && Grid.getLeft(this).getId() == ObjectId.Empty) {
+						Grid.getLeft(this).setId(ObjectId.Water);
+						Grid.getLeft(this).setDirection(-1);
+						setId(ObjectId.Empty);
+						direction = 0;
+					}
+				}
+				else {
+					if (Grid.getLeft(this) != null && Grid.getLeft(this).getId() == ObjectId.Empty) {
+						Grid.getLeft(this).setId(ObjectId.Water);
+						Grid.getLeft(this).setDirection(-1);
+						setId(ObjectId.Empty);
+						direction = 0;
+					}
+					else if (Grid.getRight(this) != null && Grid.getRight(this).getId() == ObjectId.Empty) {
+						Grid.getRight(this).setId(ObjectId.Water);
+						Grid.getRight(this).setDirection(1);
+						setId(ObjectId.Empty);
+						direction = 0;
+					}
 				}
 			}
 		}
-		//		else if (id == ObjectId.Water) {
-		//			if (Grid.getDown(this) != null) {
-		//				if (Grid.getDown(this).getId() == ObjectId.Empty) { //if below is empty
-		//					Grid.getDown(this).setId(ObjectId.Water);
-		//					id = ObjectId.Empty;
-		//				} 
-		//				else { //if below is not empty
-		//					if (Grid.getDownLeft(this) != null && Grid.getDownLeft(this).getId() == ObjectId.Empty) { //if down left is empty
-		//						Grid.getDownLeft(this).setId(ObjectId.Water);
-		//						id = ObjectId.Empty;
-		//					}
-		//					else if (Grid.getDownRight(this) != null && Grid.getDownRight(this).getId() == ObjectId.Empty) { //if down left is not empty and if down right is empty
-		//						Grid.getDownRight(this).setId(ObjectId.Water);
-		//						id = ObjectId.Empty;
-		//					}
-		//					else { //if below, down left and down right is not empty
-		//						if (Grid.getLeft(this) != null || Grid.getRight(this) != null) {
-		//							if (Grid.getLeft(this) != null && Grid.getLeft(this).getId() == ObjectId.Empty) {
-		//								Grid.getLeft(this).setId(ObjectId.Water);
-		//								id = ObjectId.Empty;
-		//							}
-		//							else if (Grid.getRight(this) != null && Grid.getRight(this).getId() == ObjectId.Empty) {
-		//								Grid.getRight(this).setId(ObjectId.Water);
-		//								id = ObjectId.Empty;
-		//							}
-		//						}
-		//					}
-		//				}
-		//			}
-		//		}
 
 	}
 
@@ -124,6 +128,10 @@ public class Cell extends GameObject {
 	@Override
 	public Rectangle getBounds() {		
 		return new Rectangle(x, y, 4, 4);
+	}
+	
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 
 }

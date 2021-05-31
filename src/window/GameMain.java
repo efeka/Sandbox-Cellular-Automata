@@ -4,12 +4,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.image.BufferStrategy;
 
 import framework.MouseInput;
 import framework.ObjectId;
 import objects.Grid;
+import objects.ToolsMenu;
 
 @SuppressWarnings("serial")
 public class GameMain extends Canvas implements Runnable {
@@ -30,6 +30,8 @@ public class GameMain extends Canvas implements Runnable {
 		MouseInput mouse = new MouseInput();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+		
+		handler.addObject(new ToolsMenu(SCREEN_WIDTH / 2, 0, 200, 200, ObjectId.Menu), Handler.MENU_LAYER);
 	}
 
 	public synchronized void start() {
@@ -63,7 +65,7 @@ public class GameMain extends Canvas implements Runnable {
 
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				//System.out.println("FPS: " + frames);
 				frames = 0;
 				updates = 0;
 			}
@@ -89,7 +91,7 @@ public class GameMain extends Canvas implements Runnable {
 		g.setColor(new Color(70, 70, 70));
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		handler.render(g);			
+		handler.render(g);	
 		grid.render(g);
 
 		g.dispose();

@@ -7,19 +7,19 @@ import java.awt.event.MouseMotionListener;
 public class MouseInput implements MouseListener, MouseMotionListener {
 	
 	public static int x = 0, y = 0;
-	public static boolean leftPressed = false, rightPressed = false;
+	public static boolean leftPressed = false, rightPressed = false;;
 	
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1)
 			leftPressed = true;
-		else if (e.getButton() == MouseEvent.BUTTON3)
+		if (e.getButton() == MouseEvent.BUTTON3)
 			rightPressed = true;
 	}
 	
 	public void mouseReleased(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) 
 			leftPressed = false;
-		else if (e.getButton() == MouseEvent.BUTTON3)
+		if (e.getButton() == MouseEvent.BUTTON3)
 			rightPressed = false;
 	}
 

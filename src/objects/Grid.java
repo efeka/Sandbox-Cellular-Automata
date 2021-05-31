@@ -22,7 +22,6 @@ public class Grid extends GameObject {
 		for (int i = 0; i < cols; i++) 
 			for (int j = 0; j < rows; j++) 
 				cells[j][i] = new Cell(i * 4, j * 4, j, i, ObjectId.Empty);
-		cells[50][50].setId(ObjectId.Water);
 	}
 
 	@Override
@@ -30,8 +29,8 @@ public class Grid extends GameObject {
 		for (int i = cells.length - 1; i >= 0; i--) {
 			for (int j = 0; j < cells[i].length; j++) {
 				cells[i][j].tick();
-
-				if (MouseInput.leftPressed || MouseInput.rightPressed) { 
+					
+				if (MouseInput.leftPressed && MouseInput.y > 50) { 
 					if (cells[i][j].getBounds().contains(MouseInput.x, MouseInput.y)) {
 						ObjectId selectedId;
 						if (MouseInput.leftPressed)
@@ -41,21 +40,21 @@ public class Grid extends GameObject {
 						
 						cells[i][j].setId(selectedId);
 
-//						if (cells[i][j].getId() == selectedId) {
-//							Cell[] neighbors = new Cell[8];
-//							neighbors[0] = getLeft(cells[i][j]);
-//							neighbors[1] = getRight(cells[i][j]);
-//							neighbors[2] = getUp(cells[i][j]);
-//							neighbors[3] = getDown(cells[i][j]);
-//							neighbors[4] = getTopLeft(cells[i][j]);
-//							neighbors[5] = getTopRight(cells[i][j]);
-//							neighbors[6] = getDownLeft(cells[i][j]);
-//							neighbors[7] = getDownRight(cells[i][j]);
-//
-//							for (int k = 0; k < neighbors.length; k++) 
-//								if (neighbors[k] != null)
-//									neighbors[k].setId(selectedId);
-//						}	
+						if (cells[i][j].getId() == selectedId) {
+							Cell[] neighbors = new Cell[8];
+							neighbors[0] = getLeft(cells[i][j]);
+							neighbors[1] = getRight(cells[i][j]);
+							neighbors[2] = getUp(cells[i][j]);
+							neighbors[3] = getDown(cells[i][j]);
+							neighbors[4] = getTopLeft(cells[i][j]);
+							neighbors[5] = getTopRight(cells[i][j]);
+							neighbors[6] = getDownLeft(cells[i][j]);
+							neighbors[7] = getDownRight(cells[i][j]);
+
+							for (int k = 0; k < neighbors.length; k++) 
+								if (neighbors[k] != null)
+									neighbors[k].setId(selectedId);
+						}	
 					}
 				}
 

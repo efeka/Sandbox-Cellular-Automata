@@ -1,10 +1,10 @@
 package framework;
 
 public enum ObjectId {
-	
+	Menu(),
 	Grid(),
 	Empty(),
-	Sand(),
-	Water();
-	
+	Water(),
+	Wood(),
+	Sand();
 }
