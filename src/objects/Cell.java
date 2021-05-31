@@ -120,8 +120,18 @@ public class Cell extends GameObject {
 			g.fillRect(x, y, 4, 4);
 		}
 		else if (id == ObjectId.Water) { 
-			g.setColor(Color.blue);
+			int randomColor = (int) (Math.random() * 2);
+			if (randomColor == 0)
+				g.setColor(Color.blue);
+			else
+				g.setColor(new Color(45, 45, 255));
 			g.fillRect(x, y, 4, 4);
+		}
+		else if (id == ObjectId.Wood) {
+			g.setColor(new Color(193, 60, 60));
+			g.fillRect(x, y, 4, 2);
+			g.setColor(new Color(170, 35, 35));
+			g.fillRect(x, y + 2, 4, 2);
 		}
 	}
 

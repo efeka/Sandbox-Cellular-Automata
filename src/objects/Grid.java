@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -22,6 +24,7 @@ public class Grid extends GameObject {
 		for (int i = 0; i < cols; i++) 
 			for (int j = 0; j < rows; j++) 
 				cells[j][i] = new Cell(i * 4, j * 4, j, i, ObjectId.Empty);
+		
 	}
 
 	@Override
@@ -30,34 +33,25 @@ public class Grid extends GameObject {
 			for (int j = 0; j < cells[i].length; j++) {
 				cells[i][j].tick();
 					
-				if (MouseInput.leftPressed && MouseInput.y > 50) { 
+				if ((MouseInput.leftPressed || MouseInput.rightPressed) && MouseInput.y > 51) { 
 					if (cells[i][j].getBounds().contains(MouseInput.x, MouseInput.y)) {
-						ObjectId selectedId;
-						if (MouseInput.leftPressed)
-							selectedId = ObjectId.Sand;
-						else
-							selectedId = ObjectId.Water;
+						if (MouseInput.leftPressed && cells[i][j].getId() == ObjectId.Empty)
+							cells[i][j].setId(ToolsMenu.selectedTool);
+						else if (MouseInput.rightPressed)
+							cells[i][j].setId(ObjectId.Empty);
 						
-						cells[i][j].setId(selectedId);
-
-						if (cells[i][j].getId() == selectedId) {
-							Cell[] neighbors = new Cell[8];
-							neighbors[0] = getLeft(cells[i][j]);
-							neighbors[1] = getRight(cells[i][j]);
-							neighbors[2] = getUp(cells[i][j]);
-							neighbors[3] = getDown(cells[i][j]);
-							neighbors[4] = getTopLeft(cells[i][j]);
-							neighbors[5] = getTopRight(cells[i][j]);
-							neighbors[6] = getDownLeft(cells[i][j]);
-							neighbors[7] = getDownRight(cells[i][j]);
-
-							for (int k = 0; k < neighbors.length; k++) 
-								if (neighbors[k] != null)
-									neighbors[k].setId(selectedId);
-						}	
+						for (int m = i; m < i + MouseInput.cursorSize / 4; m++) {
+							for (int n = j; n < j + MouseInput.cursorSize / 4; n++) {
+								try {
+									if (MouseInput.leftPressed && cells[m][n].getId() == ObjectId.Empty)
+										cells[m][n].setId(ToolsMenu.selectedTool);
+									else if (MouseInput.rightPressed)
+										cells[m][n].setId(ObjectId.Empty);
+								} catch(ArrayIndexOutOfBoundsException ignored) {}
+							}
+						}
 					}
 				}
-
 			}
 		}
 	}

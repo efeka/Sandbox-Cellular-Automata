@@ -3,11 +3,17 @@ package framework;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class MouseInput implements MouseListener, MouseMotionListener {
+public class MouseInput implements MouseListener, MouseMotionListener, MouseWheelListener {
 	
 	public static int x = 0, y = 0;
-	public static boolean leftPressed = false, rightPressed = false;;
+	public static boolean leftPressed = false, rightPressed = false;
+	
+	private static final int MIN_CURSOR_SIZE = 4;
+	private static final int MAX_CURSOR_SIZE = 100;
+	public static int cursorSize = 24;
 	
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1)
@@ -41,5 +47,14 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		cursorSize -= e.getWheelRotation() * 12;
+		if (cursorSize > MAX_CURSOR_SIZE)
+			cursorSize = MAX_CURSOR_SIZE;
+		if (cursorSize < MIN_CURSOR_SIZE)
+			cursorSize = MIN_CURSOR_SIZE;
+	}
 
 }

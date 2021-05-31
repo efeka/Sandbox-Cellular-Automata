@@ -13,24 +13,28 @@ import objects.ToolsMenu;
 
 @SuppressWarnings("serial")
 public class GameMain extends Canvas implements Runnable {
-	
+
 	public static int SCREEN_WIDTH = 700;
 	public static int SCREEN_HEIGHT = 600;
+
+	private static Window window;
+	MouseInput mouse;
 	
 	private boolean running = false;
 	private Thread thread;
-	
+
 	private Grid grid;
 	private Handler handler;
-	
+
 	private void init() {
 		grid = new Grid(0, 0, ObjectId.Grid);
 		handler = new Handler();
 
-		MouseInput mouse = new MouseInput();
+		mouse = new MouseInput();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
-		
+		addMouseWheelListener(mouse);
+
 		handler.addObject(new ToolsMenu(SCREEN_WIDTH / 2, 0, 200, 200, ObjectId.Menu), Handler.MENU_LAYER);
 	}
 
@@ -75,6 +79,11 @@ public class GameMain extends Canvas implements Runnable {
 	private void tick() {
 		handler.tick();
 		grid.tick();
+
+		if (MouseInput.y < 50)
+			window.changeCursor(Window.CURSOR_DEFAULT);
+		else
+			window.changeCursor(Window.CURSOR_BRUSH);
 	}
 
 	private void render() {
@@ -94,12 +103,25 @@ public class GameMain extends Canvas implements Runnable {
 		handler.render(g);	
 		grid.render(g);
 
+		if (MouseInput.y >= 50) {
+			g.setColor(new Color(255, 255, 255, 150));
+			int mouseX = MouseInput.x;
+			int mouseY = MouseInput.y;
+			
+			while(mouseX % 4 != 0)
+				mouseX--;
+			while(mouseY % 4 != 0)
+				mouseY--;
+
+			g.drawRect(mouseX, mouseY, MouseInput.cursorSize, MouseInput.cursorSize);
+		}
+		
 		g.dispose();
 		bs.show();
 	}
 
 	public static void main(String[] args) {
-		new Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Sandbox Cellular Automata", new GameMain());
+		window = new Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Sandbox Cellular Automata", new GameMain());
 	}
 
 }
