@@ -54,6 +54,12 @@ public class Grid extends GameObject {
 			}
 		}
 	}
+	
+	public void clear() {
+		for (int i = 0; i < cells.length; i++)
+			for (int j = 0; j < cells[i].length; j++)
+				cells[i][j].setId(ObjectId.Empty);
+	}
 
 	@Override
 	public void render(Graphics g) {

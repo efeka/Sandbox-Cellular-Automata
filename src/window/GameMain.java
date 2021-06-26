@@ -35,7 +35,7 @@ public class GameMain extends Canvas implements Runnable {
 		addMouseMotionListener(mouse);
 		addMouseWheelListener(mouse);
 
-		handler.addObject(new ToolsMenu(SCREEN_WIDTH / 2, 0, 200, 200, ObjectId.Menu), Handler.MENU_LAYER);
+		handler.addObject(new ToolsMenu(SCREEN_WIDTH / 2, 0, 200, 200, grid, ObjectId.Menu), Handler.MENU_LAYER);
 	}
 
 	public synchronized void start() {
