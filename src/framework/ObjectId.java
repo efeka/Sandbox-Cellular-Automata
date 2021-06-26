@@ -6,5 +6,8 @@ public enum ObjectId {
 	Empty(),
 	Water(),
 	Wood(),
-	Sand();
+	Sand(),
+	Lava(),
+	Rock(),
+	Gunpowder();
 }

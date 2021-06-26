@@ -1,9 +1,8 @@
 package objects;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import framework.GameObject;
 import framework.MouseInput;
@@ -125,6 +124,54 @@ public class Grid extends GameObject {
 		} catch(ArrayIndexOutOfBoundsException e) {
 			return null;
 		}
+	}
+	
+	/**
+	 * Returns a list of all neighbors of the given cell
+	 */
+	public static ArrayList<Cell> getNeighbors(Cell cell) {
+		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+		if (getTopLeft(cell) != null)
+			neighbors.add(getTopLeft(cell));
+		if (getUp(cell) != null)
+			neighbors.add(getUp(cell));
+		if (getTopRight(cell) != null)
+			neighbors.add(getTopRight(cell));
+		if (getLeft(cell) != null)
+			neighbors.add(getLeft(cell));
+		if (getRight(cell) != null)
+			neighbors.add(getRight(cell));
+		if (getDownLeft(cell) != null)
+			neighbors.add(getDownLeft(cell));
+		if (getDown(cell) != null)
+			neighbors.add(getDown(cell));
+		if (getDownRight(cell) != null)
+			neighbors.add(getDownRight(cell));
+		return neighbors;
+	}
+	
+	/**
+	 * Returns a list of all neighbors of the given cell which have the given id
+	 */
+	public static ArrayList<Cell> getNeighbors(Cell cell, ObjectId neighborId) {
+		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+		if (getTopLeft(cell) != null && getTopLeft(cell).getId() == neighborId)
+			neighbors.add(getTopLeft(cell));
+		if (getUp(cell) != null && getUp(cell).getId() == neighborId)
+			neighbors.add(getUp(cell));
+		if (getTopRight(cell) != null && getTopRight(cell).getId() == neighborId)
+			neighbors.add(getTopRight(cell));
+		if (getLeft(cell) != null && getLeft(cell).getId() == neighborId)
+			neighbors.add(getLeft(cell));
+		if (getRight(cell) != null && getRight(cell).getId() == neighborId)
+			neighbors.add(getRight(cell));
+		if (getDownLeft(cell) != null && getDownLeft(cell).getId() == neighborId)
+			neighbors.add(getDownLeft(cell));
+		if (getDown(cell) != null && getDown(cell).getId() == neighborId)
+			neighbors.add(getDown(cell));
+		if (getDownRight(cell) != null && getDownRight(cell).getId() == neighborId)
+			neighbors.add(getDownRight(cell));
+		return neighbors;
 	}
 
 	@Override
